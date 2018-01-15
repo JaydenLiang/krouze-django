@@ -16,7 +16,7 @@ services:
     #  - redis
     # restart: always
     environment:
-      VIRTUAL_HOST: <YOUR_DOMAIN_NAME> # For using Nginx Proxy
+      VIRTUAL_HOST: django.pjliang.com # For using Nginx Proxy
   # redis server isn't enabled by default
   # uncomment this section and add -redis dependency to the 'web' server section
   # redis:
