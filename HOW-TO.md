@@ -36,3 +36,8 @@ DATABASES = {
 docker-compose up
 # detachted
 docker-compose up -d
+
+# use django-admin
+# after "docker-compose up -d" to run a dettached service set. use interactive mode to login to the web service
+# then you can su the django-admin feature
+docker exec -it <CONTAINER_NAME> bash 
