@@ -1,0 +1,37 @@
+# this docker-compose file is to run and stop all relative services
+# this is a default configuration so copy it and modify as needed
+# use: 'docker-compose up -d' command to start all services
+# use: 'docker-compose stop' command to stop all services
+version: "3"
+services:
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - "./web_data:/usr/src/app" # mount web_data directory as the application directory in the web service container
+    ports:
+      - 8000:8000
+    depends_on: # uncomment this line if dependency is needed.
+     - postgres
+    #  - redis
+    # restart: always
+    environment:
+      VIRTUAL_HOST: <YOUR_DOMAIN_NAME> # For using Nginx Proxy
+  # redis server isn't enabled by default
+  # uncomment this section and add -redis dependency to the 'web' server section
+  # redis:
+  #   image: redis:latest
+  #   volumes:
+  #     - "./redis_data:/data"
+  #   restart: always
+  # uncomment this section if not building a django-server docker image, need to enable the postgres server from here
+  postgres:
+    image: postgres:latest
+    volumes:
+      - "./postgres_data:/var/lib/postgresql/data"
+    restart: always
+# uncomment this section for network settings for using Nginx Proxy
+# networks:
+#   default:
+#     external:
+#       name: nginx-proxy
